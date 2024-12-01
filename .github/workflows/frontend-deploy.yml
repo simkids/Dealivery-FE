@@ -34,5 +34,6 @@ jobs:
           host: ${{ secrets.EC2_HOST_FRONT }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY_FRONT }}
-          source: frontend/dist/**
-          target: /var/www/dist
+          source: frontend/dist/
+          target: /var/www/dist/
+          args: "--remove-source-files --rsync-path='rsync --no-implied-dirs'"
