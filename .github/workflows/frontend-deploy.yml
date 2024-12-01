@@ -27,12 +27,17 @@ jobs:
           npm install
           npm run build
 
-      # 4. dist 폴더 EC2로 배포
+      # 4. 배포 전 기존 파일 삭제
+      - name: Clean target directory on EC2
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST_FRONT }} "rm -rf /var/www/dist/*"
+
+      # 5. dist 폴더 EC2로 배포
       - name: Deploy dist to EC2
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.EC2_HOST_FRONT }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY_FRONT }}
-          source: frontend/dist/
+          source: frontend/dist/*
           target: /var/www/dist
