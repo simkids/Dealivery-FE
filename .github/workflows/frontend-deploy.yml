@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: 16
 
-      # 3. npm 종속성 설치 및 Vue app build
+      # 3. npm 종속성 설치 & Vue app build
       - name: Install npm dependencies and build Vue app
         working-directory: frontend  # frontend 디렉토리로 이동
         run: |
